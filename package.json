@@ -1,0 +1,52 @@
+{
+  "name": "test-integration",
+  "version": "1.0.0",
+  "description": "Test integration",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "Firefox ESR"
+  ],
+  "config": {
+    "browsersync": {
+      "port": 3000
+    },
+    "js": {
+      "entry": "src/js/main.js",
+      "output": "assets/js"
+    },
+    "css": {
+      "src": "src/sass",
+      "dist": "assets/css",
+      "style": "compressed",
+      "map": "--map"
+    }
+  },
+  "scripts": {
+    "dev": "npm-run-all -p css -p browser watch",
+    "browser": "cross-conf-env browser-sync \"$npm_package_config_browsersync_proxy\" -f \"**/*.php\" \"$npm_package_config_css_dist\" \"$npm_package_config_js_output\" --port $npm_package_config_browsersync_port",
+    "build": "run-p css vite",
+    "css": "cross-conf-env sass $npm_package_config_css_src:$npm_package_config_css_dist --style=compressed",
+    "postsass": "cross-conf-env postcss $npm_package_config_css_dist/*.css --use=autoprefixer --dir=$npm_package_config_css_dist $npm_package_config_css_map",
+    "vite": "vite build",
+    "watch:sass": "cross-conf-env onchange \"$npm_package_config_css_src/**/*\" -e \".DS_Store\" -- npm run css",
+    "watch:vite": "npm run vite -- --watch --mode development",
+    "watch": "run-p watch:*"
+  },
+  "engines": {
+    "node": ">= 18.16",
+    "npm": ">= 9.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "autoprefixer": "^10.4.14",
+    "browser-sync": "^3.0.2",
+    "cross-conf-env": "^1.3.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "postcss-cli": "^10.1.0",
+    "sass": "^1.77.8",
+    "vite": "^4.3.9"
+  }
+}
