@@ -1,15 +1,20 @@
 @use "reset";
-@use "typography";
+@use "typography" as *;
 
 //design tokens
-
+//exercice 1
 $primary-color: #1b337a;
 $primary-surface-color-1: #a3c2e5;
 $primary-surface-color-2: #dde8f7;
+
+//exercice 2
+$secondary-color: #6f007d;
+
 $white: #ffffff;
 $black: #000000;
 $gray: #909dbf;
-
+$gray-dark: #6f6f6f;
+$red: #ff2925;
 /* ------- Breakpoint ------- */
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
@@ -148,6 +153,119 @@ $wrapper-padding-inline: $spacer-inline-md;
             background-color: $primary-surface-color-1;
           }
         }
+      }
+    }
+  }
+}
+
+.thermometer {
+  font-family: $heading-font;
+  font-size: calc($font-size-sm - 0.2vi);
+  line-height: 1rem;
+  margin-block: $spacer-block-xxl;
+  padding-inline: $spacer-inline-xl;
+  ul {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: $spacer-block-xs;
+    box-shadow: -5px 0 0 0 $secondary-color;
+
+    li.main-stop:before {
+      content: "";
+      display: block;
+      width: 18px;
+      height: $spacer-block-md;
+      background-color: $black;
+      position: absolute;
+      top: 50%;
+      left: -18px;
+      transform: translateX(-50%) translateY(-65%);
+    }
+    li.main-stop {
+      font-size: $font-size-xs;
+      text-transform: uppercase;
+      border: 1.5px solid $gray-dark;
+      span:first-child {
+        background-color: $secondary-color;
+        color: $white;
+        padding: $spacer-block-xxs;
+      }
+      span:last-child {
+        padding-inline: $spacer-inline-xxs;
+      }
+    }
+    li {
+      width: fit-content;
+      position: relative;
+      margin-inline-start: $spacer-block-xl;
+      margin-block: $spacer-block-xxs;
+      &:before {
+        content: "";
+        display: block;
+        width: 15px;
+        height: $spacer-block-md;
+        background-color: $white;
+        border: 1px solid $gray-dark;
+        position: absolute;
+        top: 50%;
+        left: -17.75px;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+    li.current-stop {
+      color: $red;
+      &:before {
+        content: "";
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: calc(($spacer-block-xl + 7px) * -1);
+        transform: translateY(-50%);
+        background-color: $black;
+        box-shadow: 0 0 0 1px $white;
+        transform-origin: center;
+      }
+    }
+    li.main-stop.departure::before {
+      box-shadow: 0px -5px 0 5px $white;
+    }
+    li.main-stop.arrival::before {
+      box-shadow: 0px 5px 0 5px $white;
+    }
+    & > ul:first-child {
+      margin-block-start: $spacer-block-xxl;
+    }
+    ul {
+      margin-inline-start: $spacer-block-xxl;
+      width: fit-content;
+      box-shadow: -5px 0 0 0 $secondary-color;
+      position: relative;
+      &:before {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 5px;
+        background-color: $secondary-color;
+        position: absolute;
+        top: -3px;
+        left: -30px;
+        & > li.main-stop::before {
+          box-shadow: 0px 5px 0 5px $white;
+        }
+      }
+      ul::after {
+        content: "";
+        display: block;
+        width: 30px;
+        height: 5px;
+        background-color: $secondary-color;
+        position: absolute;
+        bottom: -5px;
+        left: -30px;
       }
     }
   }
