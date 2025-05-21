@@ -12,12 +12,6 @@ html {
   text-size-adjust: none;
 }
 
-/* Remove default popover styles */
-*[popover] {
-  border: none;
-  outline: none;
-}
-
 /* Remove default margin in favour of better control in authored CSS */
 body,
 h1,
