@@ -1,27 +1,5 @@
 @use "reset";
-
-//fonts
-
-@font-face {
-  font-family: "Oswald";
-  src: url("../fonts/Oswald-VariableFont_wght.ttf") format("ttf");
-  font-weight: 100 900;
-  font-display: swap;
-  font-stretch: 100%;
-  font-style: normal;
-}
-
-$heading-font: "Oswald", system-ui, -apple-system, "Segoe UI", sans-serif;
-
-/* font size */
-$font-size-xs: clamp(0.625rem, 0.5875rem + 0.1875vi, 0.8125rem);
-$font-size-sm: clamp(0.8125rem, 0.7625rem + 0.25vi, 1rem);
-$font-size-default: clamp(1rem, 0.95rem + 0.3125vi, 1.25rem);
-$font-size-md: clamp(1.5625rem, 1.4844rem + 0.3906vi, 1.9531rem);
-$font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
-$font-size-xl: clamp(2.4414rem, 2.3193rem + 0.6104vi, 3.0518rem);
-$font-size-xxl: clamp(3.0518rem, 2.8992rem + 0.7629vi, 3.8147rem);
-$font-size-bg: clamp(4.7684rem, 4.53rem + 1.1921vi, 5.9605rem);
+@use "typography";
 
 //design tokens
 
@@ -66,28 +44,6 @@ $spacer-inline-xl: calc(15px + 0.3vi);
 $spacer-inline-xxl: calc(25px + 0.3vi);
 
 $wrapper-padding-inline: $spacer-inline-md;
-//utilities
-
-@mixin flex-start {
-  display: flex;
-  justify-content: flex-start;
-  align-items: start;
-  flex-wrap: wrap;
-}
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-@mixin flex-column-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 //layout
 
@@ -113,29 +69,11 @@ $wrapper-padding-inline: $spacer-inline-md;
 }
 
 .fiche {
-  font-family: $heading-font;
-  font-weight: 600;
-
   h1 {
-    font-size: 2rem;
     margin-block-start: $spacer-block-lg;
     margin-block-end: $spacer-block-xxl;
   }
 
-  h2 {
-    font-size: 0.8rem;
-    span:first-child {
-      text-transform: uppercase;
-    }
-    span:last-child {
-      word-spacing: -0.1em;
-    }
-  }
-  a {
-    text-decoration: none;
-    color: inherit;
-    pointer-events: none;
-  }
   &__header {
     background-color: $primary-color;
     color: $white;
@@ -144,6 +82,7 @@ $wrapper-padding-inline: $spacer-inline-md;
   }
   &__body {
     .table {
+      // use variable from the server to set the number of columns
       $col-count: 18;
       display: grid;
       grid-template-columns: repeat($col-count, minmax(20px, 1fr));
@@ -151,7 +90,8 @@ $wrapper-padding-inline: $spacer-inline-md;
         border-block-start: 1px solid $gray;
         margin-block-end: $spacer-block-lg;
         min-height: 200px;
-        & div:not(:last-child) {
+
+        &:not(:last-child) > div {
           border-inline-end: 1px solid $gray;
         }
 
@@ -159,18 +99,12 @@ $wrapper-padding-inline: $spacer-inline-md;
           display: flex;
           justify-content: center;
           align-items: baseline;
-          line-height: 1rem;
+
+          padding-inline: $spacer-inline-xs;
+          padding-block: $spacer-block-xs;
 
           color: $white;
           background-color: $primary-color;
-          padding-inline: $spacer-inline-xs;
-          padding-block: $spacer-block-xs;
-          font-size: $font-size-sm;
-          font-weight: 600;
-
-          span:last-child {
-            font-size: calc($font-size-xs - 0.2rem);
-          }
         }
         & > ul {
           display: flex;
@@ -178,45 +112,30 @@ $wrapper-padding-inline: $spacer-inline-md;
           justify-content: baseline;
           align-items: center;
           gap: $spacer-block-xs;
-          line-height: 1rem;
+
           li {
             display: flex;
-            font-size: $font-size-sm;
-            font-weight: 800;
-            letter-spacing: -0.07em;
             padding-block: $spacer-block-xs;
             align-items: baseline;
-            a {
-              font-size: $font-size-xs;
-            }
-            & > * {
-              height: 1rem;
-            }
           }
         }
       }
       @media (width <= $breakpoint-md) {
-        grid-template-columns: repeat(
-          round($col-count * 0.6),
-          minmax(20px, 1fr)
-        );
+        grid-template-columns: repeat(round($col-count / 2), minmax(20px, 1fr));
         .table__col {
-          &:nth-child(even) {
-            background-color: $primary-surface-color-2;
-          }
-          &:nth-child(odd) {
-            background-color: $primary-surface-color-1;
-          }
-        }
-      }
-      @media (width <= $breakpoint-sm) {
-        grid-template-columns: repeat(9, minmax(20px, 1fr));
-        .table__col {
-          &:nth-child(1n) {
-            background-color: $primary-surface-color-1;
-          }
-          &:nth-child(2n) {
-            background-color: $primary-surface-color-2;
+          @for $i from 1 through 18 {
+            &:nth-child(2n + 1) {
+              background-color: $primary-surface-color-1;
+            }
+            &:nth-child(2n) {
+              background-color: $primary-surface-color-2;
+            }
+            &:nth-child(2n + 10) {
+              background-color: $primary-surface-color-1;
+            }
+            &:nth-child(2n + 11) {
+              background-color: $primary-surface-color-2;
+            }
           }
         }
       }

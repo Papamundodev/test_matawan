@@ -1,0 +1,72 @@
+//fonts
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans-VariableFont_wdth,wght.ttf") format("ttf");
+  font-weight: 100 900;
+  font-display: swap;
+  font-stretch: 100%;
+  font-style: normal;
+}
+
+$heading-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+/* font size */
+$font-size-xs: clamp(0.625rem, 0.5875rem + 0.1875vi, 0.8125rem);
+$font-size-sm: clamp(0.8125rem, 0.7625rem + 0.25vi, 1rem);
+$font-size-default: clamp(1rem, 0.95rem + 0.3125vi, 1.25rem);
+$font-size-md: clamp(1.5625rem, 1.4844rem + 0.3906vi, 1.9531rem);
+$font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
+
+.fiche {
+  font-family: $heading-font;
+  font-weight: 600;
+
+  h1 {
+    font-size: $font-size-lg;
+  }
+
+  h2 {
+    font-size: $font-size-sm;
+    span:first-child {
+      text-transform: uppercase;
+    }
+    span:last-child {
+      word-spacing: -0.1em;
+    }
+  }
+
+  a {
+    // preparing for v2
+    text-decoration: none;
+    color: inherit;
+    pointer-events: none;
+  }
+
+  &__body {
+    .table {
+      .table__col {
+        & > div:first-child {
+          line-height: 1rem;
+          font-size: $font-size-sm;
+          font-weight: 500;
+
+          span:last-child {
+            font-size: $font-size-xs;
+            font-weight: 400;
+          }
+        }
+        & > ul {
+          li {
+            font-size: $font-size-sm;
+            font-weight: 800;
+            letter-spacing: -0.07em;
+            a {
+              font-size: $font-size-xs;
+            }
+          }
+        }
+      }
+    }
+  }
+}
