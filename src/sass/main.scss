@@ -39,6 +39,7 @@ $spacer-block-md: 9px;
 $spacer-block-lg: 12px;
 $spacer-block-xl: 15px;
 $spacer-block-xxl: 25px;
+$spacer-block-big: 50px;
 
 $spacer-inline-xxs: calc(1.5px + 0.3vi);
 $spacer-inline-xs: calc(3px + 0.3vi);
@@ -55,6 +56,7 @@ $wrapper-padding-inline: $spacer-inline-md;
 .container {
   .wrapper {
     padding-inline: $wrapper-padding-inline;
+    margin-block-end: $spacer-block-big;
   }
 }
 
@@ -158,18 +160,35 @@ $wrapper-padding-inline: $spacer-inline-md;
   }
 }
 
+.line-selector {
+  display: flex;
+  gap: $spacer-block-xs;
+  button {
+    background-color: $secondary-color;
+    color: $white;
+    padding: $spacer-block-sm $spacer-block-md;
+    border-radius: $spacer-block-xxs;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: color-mix(in srgb, $secondary-color, $white 50%);
+    }
+  }
+}
+
 .thermometer {
   font-family: $heading-font;
   font-size: calc($font-size-sm - 0.2vi);
-  line-height: 1rem;
-  margin-block: $spacer-block-xxl;
+  line-height: 1.15rem;
   padding-inline: $spacer-inline-xl;
+  overflow: hidden;
   ul {
     width: fit-content;
     display: flex;
     flex-direction: column;
     gap: $spacer-block-xs;
-    box-shadow: -5px 0 0 0 $secondary-color;
+    box-shadow: -5px 35px 0 0 $secondary-color, -5px 0 0 0 $black;
+    transition: box-shadow 1s ease-in-out;
 
     li.main-stop:before {
       content: "";
@@ -179,12 +198,13 @@ $wrapper-padding-inline: $spacer-inline-md;
       background-color: $black;
       position: absolute;
       top: 50%;
-      left: -18px;
-      transform: translateX(-50%) translateY(-65%);
+      left: -14px;
+      transform: translateX(-50%) translateY(-45%);
     }
     li.main-stop {
       font-size: $font-size-xs;
       text-transform: uppercase;
+      line-height: initial;
       border: 1.5px solid $gray-dark;
       span:first-child {
         background-color: $secondary-color;
@@ -198,7 +218,7 @@ $wrapper-padding-inline: $spacer-inline-md;
     li {
       width: fit-content;
       position: relative;
-      margin-inline-start: $spacer-block-xl;
+      margin-inline-start: 10px;
       margin-block: $spacer-block-xxs;
       &:before {
         content: "";
@@ -209,8 +229,9 @@ $wrapper-padding-inline: $spacer-inline-md;
         border: 1px solid $gray-dark;
         position: absolute;
         top: 50%;
-        left: -17.75px;
+        left: -12.75px;
         transform: translateX(-50%) translateY(-50%);
+        //transition: width 0.5s ease-in-out;
       }
     }
     li.current-stop {
@@ -223,8 +244,8 @@ $wrapper-padding-inline: $spacer-inline-md;
         border-radius: 50%;
         position: absolute;
         top: 50%;
-        left: calc(($spacer-block-xl + 7px) * -1);
-        transform: translateY(-50%);
+        left: calc(($spacer-block-xl + 8.3px) * -1);
+        transform: translateX(0) translateY(-50%);
         background-color: $black;
         box-shadow: 0 0 0 1px $white;
         transform-origin: center;
@@ -239,10 +260,17 @@ $wrapper-padding-inline: $spacer-inline-md;
     & > ul:first-child {
       margin-block-start: $spacer-block-xxl;
     }
+    & > ul:has(.current-stop) {
+      &::before {
+        background-color: $black;
+        transition: background-color 0.5s ease-in-out;
+      }
+    }
+
     ul {
       margin-inline-start: $spacer-block-xxl;
       width: fit-content;
-      box-shadow: -5px 0 0 0 $secondary-color;
+      box-shadow: -5px 0 0 0 $secondary-color, -5px 0 0 0 $black;
       position: relative;
       &:before {
         content: "";
@@ -253,6 +281,7 @@ $wrapper-padding-inline: $spacer-inline-md;
         position: absolute;
         top: -3px;
         left: -30px;
+        z-index: -1;
         & > li.main-stop::before {
           box-shadow: 0px 5px 0 5px $white;
         }
