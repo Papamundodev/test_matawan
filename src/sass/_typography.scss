@@ -18,6 +18,10 @@ $font-size-default: clamp(1rem, 0.95rem + 0.3125vi, 1.25rem);
 $font-size-md: clamp(1.5625rem, 1.4844rem + 0.3906vi, 1.9531rem);
 $font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
 
+$font-size-table-header: clamp(0.75rem, 0.7125rem + 0.1875vi, 0.9375rem);
+$font-size-table-hours: $font-size-sm;
+$font-size-table-minutes: clamp(0.75rem, 0.65rem + 0.165vi, 0.875rem);
+
 .fiche {
   font-family: $heading-font;
   font-weight: 600;
@@ -27,7 +31,8 @@ $font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
   }
 
   h2 {
-    font-size: $font-size-sm;
+    font-size: $font-size-table-header;
+    font-weight: 500;
     span:first-child {
       text-transform: uppercase;
     }
@@ -48,19 +53,20 @@ $font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
       .table__col {
         & > div:first-child {
           line-height: 1rem;
-          font-size: $font-size-sm;
+          font-size: $font-size-table-hours;
           font-weight: 500;
 
           span:last-child {
-            font-size: $font-size-xs;
+            font-size: calc($font-size-table-hours * 0.6);
             font-weight: 400;
           }
         }
         & > ul {
           li {
-            font-size: $font-size-sm;
+            font-size: $font-size-table-minutes;
             font-weight: 800;
             letter-spacing: -0.07em;
+            line-height: 0.7rem;
             a {
               font-size: $font-size-xs;
             }
