@@ -167,15 +167,12 @@ $wrapper-padding-inline: $spacer-inline-md;
 
 .thermometer {
   font-family: $heading-font;
-  font-size: calc($font-size-xs);
+  font-size: $font-size-xs;
   font-weight: 600;
-  padding-inline: $spacer-inline-xl;
-  background-color: $white;
-  overflow: hidden;
   position: relative;
   width: fit-content;
-  min-width: 190px;
-  z-index: -3;
+  min-width: 140px;
+  //arrow
   .arrow {
     position: absolute;
     top: 50%;
@@ -186,13 +183,13 @@ $wrapper-padding-inline: $spacer-inline-md;
     .arrow_center {
       height: 100%;
       width: 13px;
-      background-color: $gray-light;
       display: block;
       border-radius: 999px;
       position: relative;
+      background-color: $gray-light;
       .arrow_right,
       .arrow_left {
-        height: 57px;
+        height: 55px;
         width: 13px;
         background-color: $gray-light;
         display: block;
@@ -216,15 +213,78 @@ $wrapper-padding-inline: $spacer-inline-md;
     width: fit-content;
     display: flex;
     flex-direction: column;
-    gap: $spacer-block-xs;
-    box-shadow: -4.2px 25px 0 0 $secondary-color, -4.2px 0 0 0 $black;
+    &:before {
+      content: "";
+      display: block;
+      width: 4.2px;
+      height: calc(100% - 1rem);
+      background-color: $secondary-color;
+      position: absolute;
+      top: 0.5rem;
+      left: -10px;
+      transform: translateX(-50%);
+    }
+    ul {
+      margin-inline-start: 16px;
+      width: fit-content;
+      position: relative;
+      &:after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 4.2px;
+        background-color: $secondary-color;
+        position: absolute;
+        top: -3px;
+        left: -18px;
+        transform: translateX(-50%);
+        z-index: -1;
+      }
+      &:before {
+        content: "";
+        display: block;
+        width: 4.2px;
+        height: calc(100% - 0.5rem);
+        background-color: $secondary-color;
+        position: absolute;
+        top: 0;
+        left: -10px;
+        transform: translateX(-50%);
+      }
+      ul {
+        li:first-child {
+          margin-block-start: 1.8px;
+        }
+      }
+      ul::after {
+        content: "";
+        display: block;
+        width: 20px;
+        height: 4.2px;
+        background-color: $secondary-color;
+        position: absolute;
+        bottom: -4.2px;
+        left: -18px;
+      }
+      ul:before {
+        content: "";
+        display: block;
+        width: 4.2px;
+        height: calc(100%);
+        background-color: $secondary-color;
+        position: absolute;
+        top: 0;
+        left: -10px;
+        transform: translateX(-50%);
+      }
+    }
+
+    //li
     li {
       width: fit-content;
       position: relative;
-      margin-inline-start: 7px;
-      line-height: 0.925rem;
-      letter-spacing: -0.03em;
-      word-spacing: -0.05em;
+      margin-block-end: 1.8px;
+      z-index: 1;
       &:before {
         content: "";
         display: block;
@@ -234,7 +294,9 @@ $wrapper-padding-inline: $spacer-inline-md;
         border: 1px solid $gray-dark;
         position: absolute;
         top: 50%;
-        left: calc(-12px - 3.5px + 0.5px);
+        left: calc(
+          -12px - 5px + 1px
+        ); // the- width  - thedistance between the before of the ul and 1px box-font.
         transform: translateY(-50%);
         transition: width 0.5s ease-in-out;
       }
@@ -247,18 +309,15 @@ $wrapper-padding-inline: $spacer-inline-md;
       background-color: $black;
       position: absolute;
       top: 50%;
-      left: calc(-16px - 3.5px + 1px);
+      left: calc(-16px - 5px + 1.5px);
       transform: translateY(-45%);
       border: none;
     }
     li.main-stop {
-      font-size: $font-size-xs;
-      text-transform: uppercase;
       color: $gray-dark;
       border: 1.5px solid $gray-dark;
       border-radius: 2px;
       margin-block-end: 2.5px;
-      line-height: inherit;
       span:first-child {
         background-color: $secondary-color;
         color: $white;
@@ -270,6 +329,7 @@ $wrapper-padding-inline: $spacer-inline-md;
     }
     li.current-stop {
       color: $red;
+      margin-block: 3px;
       &:before {
         content: "";
         display: block;
@@ -278,7 +338,7 @@ $wrapper-padding-inline: $spacer-inline-md;
         border-radius: 50%;
         position: absolute;
         top: 50%;
-        left: calc(-10px - 3.5px - 0.5px);
+        left: calc(-10px - 3.5px - 1.5px);
         transform: translateY(-50%);
         background-color: $black;
         box-shadow: 0 0 0 1px $white;
@@ -286,42 +346,27 @@ $wrapper-padding-inline: $spacer-inline-md;
         border: none;
       }
     }
-    li.main-stop.departure::before {
-      box-shadow: 0px -7px 0 0px $white;
-    }
-    li.main-stop.arrival::before {
-      box-shadow: 0px 8px 0 0px $white;
-    }
     li:has(+ ul) {
       margin-block-end: $spacer-block-xs;
     }
-    & > ul:has(.current-stop) {
-      &::before {
-        background-color: $black;
-        transition: background-color 0.5s ease-in-out;
-      }
-    }
+  }
+}
 
-    ul {
-      margin-inline-start: 16px;
-      width: fit-content;
-      box-shadow: -4.2px 0 0 0 $secondary-color, -4.2px 0 0 0 $black;
+.thermometer {
+  li {
+    letter-spacing: -0.03em;
+    word-spacing: -0.05em;
+    min-height: 1rem;
+    font-size: $font-size-xs;
+  }
+  li.main-stop {
+    font-size: $font-size-xxs;
+    text-transform: uppercase;
+  }
+  .switch-back-lane {
+    li:last-child {
       position: relative;
-      &:before {
-        content: "";
-        display: block;
-        width: 20px;
-        height: 4.2px;
-        background-color: $secondary-color;
-        position: absolute;
-        top: -3px;
-        left: -20px;
-        z-index: -1;
-        & > li.main-stop::before {
-          box-shadow: 0px 5px 0 5px $white;
-        }
-      }
-      ul::after {
+      &:after {
         content: "";
         display: block;
         width: 20px;
@@ -329,7 +374,22 @@ $wrapper-padding-inline: $spacer-inline-md;
         background-color: $secondary-color;
         position: absolute;
         bottom: -4.2px;
-        left: -20px;
+        left: -18px;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  & > ul:before {
+    background-image: linear-gradient(to bottom, $black);
+    background-size: 100% 20px;
+    background-repeat: no-repeat;
+    animation: fill-arrow 10s linear;
+    @keyframes fill-arrow {
+      0% {
+        background-size: 100% 0%;
+      }
+      100% {
+        background-size: 100% 100%;
       }
     }
   }
