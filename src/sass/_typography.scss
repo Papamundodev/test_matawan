@@ -1,3 +1,5 @@
+@use "colors" as *;
+
 //fonts
 
 @font-face {
@@ -9,30 +11,30 @@
   font-style: normal;
 }
 
-$heading-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$main-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
 /* font size */
 $font-size-xxs: clamp(0.575rem, 0.55rem + 0.1875vi, 0.625rem);
 $font-size-xs: clamp(0.625rem, 0.5875rem + 0.1875vi, 0.8125rem);
-$font-size-sm: clamp(0.8125rem, 0.7625rem + 0.25vi, 1rem);
-$font-size-default: clamp(1rem, 0.95rem + 0.3125vi, 1.25rem);
-$font-size-md: clamp(1.5625rem, 1.4844rem + 0.3906vi, 1.9531rem);
-$font-size-lg: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
-
-$font-size-table-header: clamp(0.75rem, 0.7125rem + 0.1875vi, 0.9375rem);
-$font-size-table-hours: $font-size-sm;
-$font-size-table-minutes: clamp(0.75rem, 0.65rem + 0.165vi, 0.875rem);
+$font-size-sm: clamp(0.75rem, 0.65rem + 0.165vi, 0.875rem);
+$font-size-md: clamp(0.75rem, 0.7125rem + 0.1875vi, 0.9375rem);
+$font-size-lg: clamp(0.8125rem, 0.7625rem + 0.25vi, 1rem);
+$font-size-xl: clamp(1.9531rem, 1.8555rem + 0.4883vi, 2.4414rem);
 
 .fiche {
-  font-family: $heading-font;
+  font-family: $main-font;
   font-weight: 600;
 
+  &__header {
+    color: $white;
+  }
+
   h1 {
-    font-size: $font-size-lg;
+    font-size: $font-size-xl;
   }
 
   h2 {
-    font-size: $font-size-table-header;
+    font-size: $font-size-md;
     font-weight: 500;
     span:first-child {
       text-transform: uppercase;
@@ -54,17 +56,17 @@ $font-size-table-minutes: clamp(0.75rem, 0.65rem + 0.165vi, 0.875rem);
       .table__col {
         & > div:first-child {
           line-height: 1rem;
-          font-size: $font-size-table-hours;
+          font-size: $font-size-lg;
           font-weight: 500;
 
           span:last-child {
-            font-size: calc($font-size-table-hours * 0.6);
+            font-size: calc($font-size-lg * 0.6);
             font-weight: 400;
           }
         }
         & > ul {
           li {
-            font-size: $font-size-table-minutes;
+            font-size: $font-size-sm;
             font-weight: 800;
             letter-spacing: -0.07em;
             line-height: 0.7rem;
@@ -78,172 +80,47 @@ $font-size-table-minutes: clamp(0.75rem, 0.65rem + 0.165vi, 0.875rem);
   }
 }
 
-// .thermometer {
-//   font-family: $heading-font;
-//   font-size: calc($font-size-xs);
-//   font-weight: 600;
-//   padding-inline: $spacer-inline-xl;
-//   background-color: $white;
-//   overflow: hidden;
-//   position: relative;
-//   width: fit-content;
-//   min-width: 190px;
-//   z-index: -3;
-//   .arrow {
-//     position: absolute;
-//     top: 50%;
-//     left: 50%;
-//     transform: translateX(-50%) translateY(-50%);
-//     height: 335px;
-//     z-index: -1;
-//     .arrow_center {
-//       height: 100%;
-//       width: 13px;
-//       display: block;
-//       border-radius: 999px;
-//       position: relative;
-//       background-color: $gray-light;
-//       .arrow_right,
-//       .arrow_left {
-//         height: 57px;
-//         width: 13px;
-//         background-color: $gray-light;
-//         display: block;
-//         border-radius: 999px;
-//         position: absolute;
-//         bottom: 6px;
-//         left: 0;
-//         transform-origin: bottom;
-//       }
-//       .arrow_left {
-//         transform: rotate(-45deg);
-//         border-bottom-left-radius: 0;
-//       }
-//       .arrow_right {
-//         transform: rotate(45deg);
-//         border-bottom-right-radius: 0;
-//       }
-//     }
-//   }
-//   ul {
-//     width: fit-content;
-//     display: flex;
-//     flex-direction: column;
-//     gap: $spacer-block-xs;
-//     box-shadow: -4.2px 25px 0 0 $secondary-color, -4.2px 0 0 0 $black;
-//     li {
-//       width: fit-content;
-//       position: relative;
-//       margin-inline-start: 7px;
-//       line-height: 0.925rem;
-//       letter-spacing: -0.03em;
-//       word-spacing: -0.05em;
-//       &:before {
-//         content: "";
-//         display: block;
-//         width: 12px;
-//         height: 7px;
-//         background-color: $white;
-//         border: 1px solid $gray-dark;
-//         position: absolute;
-//         top: 50%;
-//         left: calc(-12px - 3.5px + 0.5px);
-//         transform: translateY(-50%);
-//         transition: width 0.5s ease-in-out;
-//       }
-//     }
-//     li.main-stop:before {
-//       content: "";
-//       display: block;
-//       width: 16px;
-//       height: 8px;
-//       background-color: $black;
-//       position: absolute;
-//       top: 50%;
-//       left: calc(-16px - 3.5px + 1px);
-//       transform: translateY(-45%);
-//       border: none;
-//     }
-//     li.main-stop {
-//       font-size: $font-size-xs;
-//       text-transform: uppercase;
-//       color: $gray-dark;
-//       border: 1.5px solid $gray-dark;
-//       border-radius: 2px;
-//       margin-block-end: 2.5px;
-//       line-height: inherit;
-//       span:first-child {
-//         background-color: $secondary-color;
-//         color: $white;
-//         padding-inline: 1px;
-//       }
-//       span:last-child {
-//         padding-inline: $spacer-inline-xxs;
-//       }
-//     }
-//     li.current-stop {
-//       color: $red;
-//       &:before {
-//         content: "";
-//         display: block;
-//         width: 10px;
-//         height: 10px;
-//         border-radius: 50%;
-//         position: absolute;
-//         top: 50%;
-//         left: calc(-10px - 3.5px - 0.5px);
-//         transform: translateY(-50%);
-//         background-color: $black;
-//         box-shadow: 0 0 0 1px $white;
-//         transform-origin: center;
-//         border: none;
-//       }
-//     }
-//     li.main-stop.departure::before {
-//       box-shadow: 0px -7px 0 0px $white;
-//     }
-//     li.main-stop.arrival::before {
-//       box-shadow: 0px 8px 0 0px $white;
-//     }
-//     li:has(+ ul) {
-//       margin-block-end: $spacer-block-xs;
-//     }
-//     & > ul:has(.current-stop) {
-//       &::before {
-//         background-color: $black;
-//         transition: background-color 0.5s ease-in-out;
-//       }
-//     }
+.thermometer {
+  font-family: $main-font;
+  font-weight: 600;
+  li {
+    letter-spacing: -0.03em;
+    word-spacing: -0.05em;
+    min-height: 1rem;
+    font-size: $font-size-xs;
+  }
+  li.main-stop {
+    text-transform: uppercase;
+    color: $gray-dark;
+    border: 1.5px solid $gray-dark;
+    border-radius: 2px;
+    margin-block-end: 2.5px;
+    span:first-child {
+      background-color: $secondary-color;
+      color: $white;
+      padding-inline: 1px;
+    }
+    span:last-child {
+      padding-inline: 3px;
+    }
+  }
+  li.current-stop {
+    color: $red;
+    margin-block: 3px;
+  }
 
-//     ul {
-//       margin-inline-start: 16px;
-//       width: fit-content;
-//       box-shadow: -4.2px 0 0 0 $secondary-color, -4.2px 0 0 0 $black;
-//       position: relative;
-//       &:before {
-//         content: "";
-//         display: block;
-//         width: 20px;
-//         height: 4.2px;
-//         background-color: $secondary-color;
-//         position: absolute;
-//         top: -3px;
-//         left: -20px;
-//         z-index: -1;
-//         & > li.main-stop::before {
-//           box-shadow: 0px 5px 0 5px $white;
-//         }
-//       }
-//       ul::after {
-//         content: "";
-//         display: block;
-//         width: 20px;
-//         height: 4.2px;
-//         background-color: $secondary-color;
-//         position: absolute;
-//         bottom: -4.2px;
-//         left: -20px;
-//       }
-//     }
-//   }
-// }
+  & > ul:before {
+    background-image: linear-gradient(to bottom, $black);
+    background-size: 100% 20px;
+    background-repeat: no-repeat;
+    animation: fill-arrow 10s linear;
+    @keyframes fill-arrow {
+      0% {
+        background-size: 100% 0%;
+      }
+      100% {
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
