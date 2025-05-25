@@ -41,6 +41,7 @@ git clone https://github.com/Papamundodev/test_matawan.git test_matawan
 2. Installer les dépendances :
 
 ```bash
+cd test_matawan
 npm install
 ```
 
