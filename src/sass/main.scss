@@ -1,363 +1,54 @@
 @use "reset";
 @use "colors" as *;
 @use "typography" as *;
+@use "layout" as *;
 @use "sass:math";
+@use "components/organisms" as *;
 
-/* ------- Breakpoint ------- */
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-$breakpoint-xxl: 1400px;
+/* ------- Layout ------- */
 
-$breakpoints: (
-  "sm": $breakpoint-sm,
-  "md": $breakpoint-md,
-  "lg": $breakpoint-lg,
-  "xl": $breakpoint-xl,
-  "xxl": $breakpoint-xxl,
-);
+body {
+  font-family: $main-font;
+}
 
-/* ------- Spacer ------- */
-
-$spacer-block-xxs: 1.5px;
-$spacer-block-xs: 3px;
-$spacer-block-sm: 6px;
-$spacer-block-md: 9px;
-$spacer-block-lg: 12px;
-$spacer-block-xl: 15px;
-$spacer-block-xxl: 25px;
-$spacer-block-big: 50px;
-
-$wrapper-padding-inline: 15px;
-
-//layout
+/* ------- Layout ------- */
 
 .container {
   .wrapper {
     padding-inline: $wrapper-padding-inline;
-    margin-block-end: $spacer-block-big;
+    margin-block-end: $spacer-big;
   }
 }
-
-@mixin container() {
-  width: 100%;
-  @each $key, $value in $breakpoints {
-    @media (width >= $value) and (width >= $breakpoint-sm) {
-      width: calc($value - $spacer-block-lg);
-    }
-  }
-}
-
 .container {
   max-width: calc(455px + 5vi);
   margin-inline: auto;
   @include container;
   @media (width <= $breakpoint-md) {
-    max-width: 350px;
+    max-width: 375px;
+    padding-inline: $spacer-md;
   }
 }
 
-//exercice 1
-
-.fiche {
-  h1 {
-    margin-block-start: $spacer-block-lg;
-    margin-block-end: $spacer-block-xxl;
-  }
-
-  &__header {
-    background-color: $primary-color;
-    padding-block: $spacer-block-sm $spacer-block-md;
-    padding-inline: $spacer-block-sm;
-  }
-  &__body {
-    .table {
-      // use variable from the server to set the number of columns
-      $col-count: 18;
-      display: grid;
-      grid-template-columns: repeat($col-count, minmax(20px, 1fr));
-      .table__col {
-        border-block-start: 1px solid $gray;
-        margin-block-end: $spacer-block-lg;
-        min-height: 125px;
-
-        &:not(:last-child) > div {
-          border-inline-end: 1px solid $gray;
-        }
-
-        //hours cell
-        & > div:first-child {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          color: $white;
-          background-color: $primary-color;
-          aspect-ratio: 1/1;
-        }
-
-        //minutes cell
-        & > ul {
-          display: flex;
-          flex-direction: column;
-          justify-content: baseline;
-          align-items: center;
-          gap: $spacer-block-xs;
-
-          li {
-            display: flex;
-            padding-block: $spacer-block-xs;
-            align-items: baseline;
-          }
-        }
-      }
-      @media (width <= $breakpoint-md) {
-        grid-template-columns: repeat(round($col-count / 2), minmax(20px, 1fr));
-        .table__col {
-          @for $i from 1 through 18 {
-            &:nth-child(2n + 1) {
-              background-color: $primary-surface-color-1;
-            }
-            &:nth-child(2n) {
-              background-color: $primary-surface-color-2;
-            }
-            &:nth-child(2n + 10) {
-              background-color: $primary-surface-color-1;
-            }
-            &:nth-child(2n + 11) {
-              background-color: $primary-surface-color-2;
-            }
-          }
-        }
-      }
-      @media (width >= $breakpoint-md) {
-        .table__col {
-          &:nth-child(even) {
-            background-color: $primary-surface-color-2;
-          }
-          &:nth-child(odd) {
-            background-color: $primary-surface-color-1;
-          }
-        }
-      }
-    }
-  }
+h1 {
+  margin-block-start: $spacer-lg;
+  margin-block-end: $spacer-xxl;
+  text-align: center;
+  @include page-title();
 }
 
-//Exercise 2 : thermometer
-
-.thermometer {
-  position: relative;
-  width: fit-content;
-  padding-inline-start: $spacer-block-xl;
+.color-picker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacer-sm;
+  margin-block-end: $spacer-xxl;
 }
 
-/* ------- ARROW START ------- */
-.thermometer {
-  //arrow
-  .arrow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    height: 335px;
-    z-index: -1;
-    .arrow_center {
-      height: 100%;
-      width: 13px;
-      display: block;
-      border-radius: 999px;
-      position: relative;
-      background-color: $gray-light;
-      .arrow_right,
-      .arrow_left {
-        height: 55px;
-        width: 13px;
-        background-color: $gray-light;
-        display: block;
-        border-radius: 999px;
-        position: absolute;
-        bottom: 6px;
-        left: 0;
-        transform-origin: bottom;
-      }
-      .arrow_left {
-        transform: rotate(-45deg);
-        border-bottom-left-radius: 0;
-      }
-      .arrow_right {
-        transform: rotate(45deg);
-        border-bottom-right-radius: 0;
-      }
-    }
+.test {
+  .thermometer {
+    @include thermometer($color: $primary-color);
+  }
+  .table {
+    @include table($col-count: 18, $color-1: $primary-color);
   }
 }
-
-/* ------- Arrow END ------- */
-
-/* ------- Lanes START ------- */
-
-$line-width: 4.2px; // width of the pseudoelement before
-$line-offset: 10px; // distance between the before(line) and the li
-$sub-lane-intersection-width: 18px; // width of the pseudoelement (switcher lane) after
-$sub-lane-offset: 16px; // inline spacing of the new lanes
-$sub-lane-height-spacing: 1.8px; // block spacing of the new lanes
-
-@mixin line() {
-  &:before {
-    content: "";
-    display: block;
-    width: $line-width;
-    background-color: $secondary-color;
-    position: absolute;
-    left: -$line-offset;
-    transform: translateX(-50%);
-  }
-}
-
-@mixin intersection {
-  &:after {
-    content: "";
-    display: block;
-    width: $sub-lane-intersection-width;
-    height: $line-width;
-    background-color: $secondary-color;
-    position: absolute;
-    top: 0;
-    left: calc(($sub-lane-offset + $line-offset) * -1);
-    z-index: -1;
-  }
-}
-
-@mixin switch-back-lane-intersection() {
-  &:after {
-    content: "";
-    display: block;
-    width: $sub-lane-intersection-width;
-    height: $line-width;
-    background-color: $secondary-color;
-    position: absolute;
-    bottom: -$line-width;
-    left: calc(($sub-lane-offset + $line-offset) * -1);
-  }
-}
-
-.thermometer {
-  ul {
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-
-    @include line();
-    // the height and top values changes depending on the number of Mains stops.
-
-    // Main line: has 1 departure and 1 arrival
-    &.main-line {
-      &:before {
-        top: $line-offset;
-        height: calc(100% - $line-offset * 2);
-      }
-    }
-
-    // Switch lane: has no departure and 1 arrival
-    &.switch-lane {
-      @include intersection();
-      margin-inline-start: $sub-lane-offset;
-      &:before {
-        height: calc(100% - $line-offset);
-        top: 0;
-      }
-    }
-    // Switch lane and back: has no departure and arrival
-    &.switch-lane-and-back {
-      @include intersection();
-      margin-inline-start: $sub-lane-offset;
-      margin-block-end: $sub-lane-height-spacing;
-      &:before {
-        height: 100%;
-        top: 0;
-      }
-      li:first-child {
-        margin-block-start: $sub-lane-height-spacing;
-      }
-      // For the closing line , i put the intersection on the last li of the switch-lane-and-back cause both pseudo elements are taken
-      li:last-child {
-        @include switch-back-lane-intersection();
-      }
-    }
-  }
-}
-
-/* ------- Lanes END ------- */
-
-/* ------- STOPs START ------- */
-
-.thermometer {
-  //Stops
-  li {
-    width: fit-content;
-    position: relative;
-    margin-block-end: $sub-lane-height-spacing;
-    z-index: 1;
-    &:before {
-      $stop-width: 12px;
-      content: "";
-      display: block;
-      width: $stop-width;
-      height: 7px;
-      background-color: $white;
-      border: 1px solid $gray-dark;
-      position: absolute;
-      top: 50%;
-      left: calc(
-        ($line-offset + ($stop-width / 2)) * -1
-      ); // the width  - the distance between the before of the ul ($line-offset)  .
-      transform: translateY(-50%);
-      transition: width 0.5s ease-in-out;
-    }
-  }
-  //Main stop
-  li.main-stop:before {
-    $main-stop-width: 16px;
-    content: "";
-    display: block;
-    width: $main-stop-width;
-    height: 8px;
-    background-color: $black;
-    position: absolute;
-    top: 50%;
-    left: calc(
-      ($line-offset + ($main-stop-width / 2) + 1px) * -1
-    ); // the width  - the distance between the before of the ul ($line-offset) - 1px for border.
-    transform: translateY(-45%);
-    border: none;
-  }
-  //Current stop
-  li.current-stop {
-    &:before {
-      $current-stop-width: 10px;
-      content: "";
-      display: block;
-      width: $current-stop-width;
-      height: $current-stop-width;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: calc(
-        ($line-offset + ($current-stop-width / 2)) * -1
-      ); // the width  - the distance between the before of the ul ($line-offset) .
-      transform: translateY(-50%);
-      background-color: $black;
-      box-shadow: 0 0 0 1px $white;
-      transform-origin: center;
-      border: none;
-    }
-  }
-  li:has(+ ul) {
-    margin-block-end: 3px;
-  }
-}
-
-/* ------- STOPs END ------- */

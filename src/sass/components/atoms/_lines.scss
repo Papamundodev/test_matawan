@@ -1,0 +1,46 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+
+/* ------- Lanes START ------- */
+
+@mixin line($color: $secondary-color, $top: 0, $height: 100%) {
+  &:before {
+    content: "";
+    display: block;
+    width: $line-width;
+    position: absolute;
+    left: -$line-offset;
+    transform: translateX(-50%);
+    background-color: $color;
+    top: $top;
+    height: $height;
+  }
+}
+
+@mixin intersection($color: $secondary-color) {
+  &:after {
+    content: "";
+    display: block;
+    width: $sub-lane-intersection-width;
+    height: $line-width;
+    position: absolute;
+    top: 0;
+    left: calc(($sub-lane-offset + $line-offset) * -1);
+    z-index: -1;
+    background-color: $color;
+  }
+}
+
+@mixin back-intersection($color: $secondary-color) {
+  &:after {
+    content: "";
+    display: block;
+    width: $sub-lane-intersection-width;
+    height: $line-width;
+    position: absolute;
+    bottom: -$line-width;
+    left: calc(($sub-lane-offset + $line-offset) * -1);
+    background-color: $color;
+  }
+}

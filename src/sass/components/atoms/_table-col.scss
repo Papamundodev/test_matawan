@@ -1,0 +1,65 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+
+@mixin table-col-bicolor($col-count: 18, $color-1: $primary-color) {
+  margin-block-end: $spacer-lg;
+  min-height: 125px;
+  border-block-start: 1px solid $gray;
+  &:not(:last-child) > div {
+    border-inline-end: 1px solid $gray;
+  }
+  &-head {
+    color: $white;
+    background-color: $color-1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    @include table-hours-text();
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: center;
+    gap: $spacer-xs;
+    li {
+      display: flex;
+      padding-block: $spacer-xs;
+      align-items: baseline;
+      @include table-minutes-text();
+      a {
+        // preparing for v2
+        color: inherit;
+      }
+    }
+  }
+
+  // The surface colors should be derived from the primary color.
+  @media (width <= $breakpoint-md) {
+    &:nth-child(2n + 1) {
+      background-color: $primary-surface-color-1;
+    }
+    &:nth-child(2n) {
+      background-color: $primary-surface-color-2;
+    }
+    &:nth-child(2n + 10) {
+      background-color: $primary-surface-color-1;
+    }
+    &:nth-child(2n + 11) {
+      background-color: $primary-surface-color-2;
+    }
+    &:nth-child(9) div:first-child {
+      border-inline-end: none;
+    }
+  }
+  @media (width >= $breakpoint-md) {
+    &:nth-child(even) {
+      background-color: $primary-surface-color-2;
+    }
+    &:nth-child(odd) {
+      background-color: $primary-surface-color-1;
+    }
+  }
+}

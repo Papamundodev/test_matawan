@@ -1,0 +1,68 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+
+@mixin square-white-shape(
+  $background-color: $white,
+  $border-color: $gray-dark,
+  $width: 12px
+) {
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+
+    width: $width;
+    height: 7px;
+
+    top: 50%;
+    left: calc(
+      ($line-offset + ($width / 2)) * -1
+    ); // the width  - the distance between the before of the ul ($line-offset)  .
+    transform: translateY(-50%);
+
+    background-color: $background-color;
+    border: 1px solid $border-color;
+  }
+}
+
+@mixin square-black-shape($background-color: $black, $width: 16px) {
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+
+    width: $width;
+    height: 8px;
+
+    top: 50%;
+    left: calc(
+      ($line-offset + ($width / 2) + 1px) * -1
+    ); // the width  - the distance between the before of the ul ($line-offset) - 1px for border.
+    transform: translateY(-45%);
+
+    background-color: $background-color;
+  }
+}
+
+@mixin circle-black-shape($background-color: $black, $width: 10px) {
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+
+    width: $width;
+    height: $width;
+    border-radius: 50%;
+
+    top: 50%;
+    left: calc(
+      ($line-offset + ($width / 2)) * -1
+    ); // the width  - the distance between the before of the ul ($line-offset) .
+    transform: translateY(-50%);
+    transform-origin: center;
+
+    background-color: $background-color;
+    box-shadow: 0 0 0 1px $white;
+  }
+}

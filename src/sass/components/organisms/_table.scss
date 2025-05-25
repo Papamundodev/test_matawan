@@ -1,0 +1,15 @@
+@use "../../layout" as *;
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../molecules" as *;
+
+/* ------- Typography exercise 1 ------- */
+
+@mixin table($col-count: 18, $color-1: $primary-color) {
+  &__header {
+    @include table-header($color: $color-1);
+  }
+  &__body {
+    @include table-body-bicolor($col-count: $col-count, $color-1: $color-1);
+  }
+}

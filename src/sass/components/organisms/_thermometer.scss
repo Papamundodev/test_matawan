@@ -1,0 +1,69 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+@use "../atoms" as *;
+@use "../molecules" as *;
+
+@mixin thermometer($color: $primary-color) {
+  position: relative;
+  width: 185px;
+  padding-inline-start: $spacer-xxl;
+  ul {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    &.main-lane {
+      @include main-lane($color: $color);
+    }
+    &.switch-lane {
+      @include switch-lane($color: $color);
+      margin-inline-start: $sub-lane-offset;
+    }
+    &.switch-lane-and-back {
+      margin-inline-start: $sub-lane-offset;
+      margin-block-end: $sub-lane-height-spacing;
+      li:first-child {
+        margin-block-start: $sub-lane-height-spacing;
+      }
+      @include switch-lane-and-back($color: $color);
+    }
+    li {
+      width: fit-content;
+      position: relative;
+      margin-block-end: $sub-lane-height-spacing;
+      z-index: 1;
+    }
+    li:has(+ ul) {
+      margin-block-end: $spacer-xs;
+    }
+    li.stop {
+      @include stop();
+    }
+    li.main-stop {
+      @include main-stop($color: $color);
+    }
+    li.current-stop {
+      @include current-stop();
+    }
+  }
+  .arrow {
+    @include arrow();
+  }
+  & > ul:before {
+    // this is relative to the current stop position, the black background should follow the current stop until it reaches destination.
+    background-image: linear-gradient(to bottom, $black);
+    background-size: 100% 20px;
+    background-repeat: no-repeat;
+    // Use this to animate the arrow when interactive
+    // animation: fill-arrow 10s linear;
+    // @keyframes fill-arrow {
+    //   0% {
+    //     background-size: 100% 0%;
+    //   }
+    //   100% {
+    //     background-size: 100% 100%;
+    //   }
+    // }
+  }
+}

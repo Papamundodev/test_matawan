@@ -1,0 +1,17 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+@use "../atoms" as *;
+
+@mixin table-body-bicolor($col-count: 18, $color-1: $primary-color) {
+  // body will defer depending on the number of column for bicolor table if the wrapped row in mobile must start with the same color of the first row
+  display: grid;
+  grid-template-columns: repeat($col-count, 1fr);
+  @media (width <= $breakpoint-md) {
+    grid-template-columns: repeat(round($col-count / 2), 1fr);
+    min-height: 150px;
+  }
+  .table__col {
+    @include table-col-bicolor($col-count: $col-count, $color-1: $color-1);
+  }
+}

@@ -1,3 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOMContentLoaded");
+  const colorPicker = document.getElementById("color-picker");
+  colorPicker.addEventListener("change", () => {
+    document.documentElement.style.setProperty(
+      "--accent-color",
+      colorPicker.value
+    );
+  });
 });

@@ -1,0 +1,42 @@
+/* ------- Breakpoint ------- */
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+$breakpoints: (
+  "sm": $breakpoint-sm,
+  "md": $breakpoint-md,
+  "lg": $breakpoint-lg,
+  "xl": $breakpoint-xl,
+  "xxl": $breakpoint-xxl,
+);
+
+/* ------- Spacer ------- */
+
+$spacer-xxs: 1.5px;
+$spacer-xs: 3px;
+$spacer-sm: 6px;
+$spacer-md: 9px;
+$spacer-lg: 12px;
+$spacer-xl: 15px;
+$spacer-xxl: 25px;
+$spacer-big: 50px;
+
+@mixin container() {
+  width: 100%;
+  @each $key, $value in $breakpoints {
+    @media (width >= $value) and (width >= $breakpoint-sm) {
+      width: calc($value - $spacer-lg);
+    }
+  }
+}
+
+$line-width: 4.2px; // width of the pseudoelement before
+$line-offset: 10px; // distance between the before(line) and the li
+$sub-lane-intersection-width: 18px; // width of the pseudoelement (switcher lane) after
+$sub-lane-offset: 16px; // inline spacing of the new lanes
+$sub-lane-height-spacing: 1.8px; // block spacing of the new lanes
+
+$wrapper-padding-inline: 0;

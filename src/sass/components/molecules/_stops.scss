@@ -1,0 +1,39 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+@use "../atoms" as *;
+
+@mixin stop() {
+  //stop shape
+  @include square-white-shape();
+  //stop text
+  @include stop-text();
+  color: $black;
+}
+
+//Main stop
+@mixin main-stop($color: $secondary-color) {
+  //stop shape
+  @include square-black-shape();
+  //stop text
+  @include main-stop-text();
+  color: $gray-dark;
+  border: $spacer-xxs solid $gray-dark;
+  border-radius: $spacer-xs;
+  span:first-child {
+    padding-inline: $spacer-xxs;
+    background-color: $color;
+    color: $white;
+  }
+  span:last-child {
+    padding-inline: $spacer-xs;
+  }
+}
+
+//Current stop
+@mixin current-stop() {
+  @include circle-black-shape();
+  @include stop-text();
+  color: $red;
+  margin-block: $spacer-xs;
+}

@@ -1,14 +1,25 @@
-//exercice 1
-$primary-color: #1b337a;
-$primary-surface-color-1: #a3c2e5;
-$primary-surface-color-2: #dde8f7;
-
-//exercice 2
-$secondary-color: #6f007d;
+@use "layout" as *;
+@use "sass:color";
 
 $white: #ffffff;
 $black: #000000;
-$gray: #909dbf;
 $gray-dark: #6f6f6f;
 $gray-light: #dfdfdf;
-$red: #ff2925;
+$red: color-mix(in srgb, #ff2925, #000000 10%); // made darker for accessibility
+
+//exercice 1
+:root {
+  --accent-color: #1b337a;
+}
+$primary-color: var(--accent-color);
+$primary-surface-color-1: color-mix(
+  in srgb,
+  $primary-color,
+  $white 70%
+); // should be #a3c2e5
+$primary-surface-color-2: color-mix(
+  in srgb,
+  $primary-color,
+  $white 90%
+); // should be #dde8f7
+$gray: color-mix(in srgb, $primary-color, $white 50%); // should be #909dbf

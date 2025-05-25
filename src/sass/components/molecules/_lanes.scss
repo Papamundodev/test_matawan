@@ -1,0 +1,30 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+@use "../atoms" as *;
+
+// the height and top values changes depending on the number of Mains stops.
+// Main line: has 1 departure and 1 arrival
+@mixin main-lane($color: $secondary-color) {
+  @include line(
+    $color: $color,
+    $top: $line-offset,
+    $height: calc(100% - $line-offset * 2)
+  );
+}
+
+// Switch lane: has no departure and 1 arrival
+@mixin switch-lane($color: $secondary-color) {
+  @include intersection($color: $color);
+  @include line($color: $color, $top: 0, $height: calc(100% - $line-offset));
+}
+
+// Switch lane and back: has no departure and arrival
+@mixin switch-lane-and-back($color: $secondary-color) {
+  @include intersection($color: $color);
+  @include line($color: $color, $top: 0, $height: 100%);
+  // For the closing line , i put the intersection on the last li of the switch-lane-and-back cause both pseudo elements are taken
+  li:last-child {
+    @include back-intersection($color: $color);
+  }
+}

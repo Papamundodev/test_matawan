@@ -1,0 +1,16 @@
+@use "../../colors" as *;
+@use "../../typography" as *;
+@use "../../layout" as *;
+
+@mixin table-header($color: $primary-color) {
+  background-color: $color;
+  color: $white;
+  padding-block: $spacer-sm $spacer-md;
+  padding-inline: $spacer-sm;
+  @media (width <= $breakpoint-md) {
+    padding-block: $spacer-md $spacer-lg;
+  }
+  h2 {
+    @include table-header-title();
+  }
+}
