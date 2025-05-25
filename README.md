@@ -35,7 +35,7 @@ différents suivant les horaires. Nous vous demandons de réaliser ce thermomèt
 1. Cloner le repository :
 
 ```bash
-git clone
+git clone https://github.com/Papamundodev/test_matawan.git test_matawan
 ```
 
 2. Installer les dépendances :
